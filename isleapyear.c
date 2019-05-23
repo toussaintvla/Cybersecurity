@@ -6,18 +6,10 @@ int main(){
     scanf("%d", &i);
 
     if(i % 4 == 0){
-        if(i % 100 == 0){
-            if(i % 400 == 0){
-                printf("%d was a leap year\n", i);
-            }
-            else{
-                printf("%d was not a leap year\n", i);
-            }
-        }
+        printf("%d was a leap year\n", i);
     }
     else{
         printf("%d was not a leap year\n", i);
     }
     
     return 0;
-}
