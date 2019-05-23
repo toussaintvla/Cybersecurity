@@ -7,18 +7,18 @@ int main(){
         if(n[i] % 4 == 0){
             if(n[i] % 100 == 0){
                 if(n[i] % 400 == 0){
-                    printf("%d was a leap year", i);
+                    printf("%d was a leap year", n[i]);
                 }
                 else{
-                    printf("%d was not a leap year", i);
+                    printf("%d was not a leap year", n[i]);
                 }
             }
             else{
-                printf("%d was not a leap year", i);
+                printf("%d was not a leap year", n[i]);
             }
         }
         else{
-            printf("%d was not a leap year", i);
+            printf("%d was not a leap year", n[i]);
         }
     }
     
