@@ -9,7 +9,7 @@ bool LeapCheck(int year);
 int main(int argc, char*argv[]){
     int n;
     
-    n = atoi(argv[2]);    
+    n = atoi(argv[1]);    
     isaleapyear(n);
 
     return 0;
