@@ -24,7 +24,6 @@ struct PCB {
         int process_priority;
     };
 
-
 struct MEMORY_BLOCK {
         int start_address;
         int end_address;
@@ -39,8 +38,6 @@ struct PTE {
         int last_access_timestamp;
         int reference_count;
     };
-
-
 
 struct RCB handle_request_arrival_fcfs(struct RCB request_queue[QUEUEMAX], int *queue_cnt, struct RCB current_request, struct RCB new_request, int timestamp);
 struct RCB handle_request_completion_fcfs(struct RCB request_queue[QUEUEMAX],int *queue_cnt);

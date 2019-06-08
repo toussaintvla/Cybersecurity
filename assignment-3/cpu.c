@@ -1,5 +1,6 @@
 #include "oslabs.h"
 #include <stdio.h>
+#include <string.h>
 
 // int main(int argc, char*argv[]){
 //     struct PCB ready_queue[10];
@@ -96,13 +97,22 @@ struct PCB handle_process_arrival_pp(struct PCB ready_queue[QUEUEMAX], int *queu
 
 struct PCB handle_process_completion_pp(struct PCB ready_queue[QUEUEMAX], int *queue_cnt, int timestamp)
 {
+    struct PCB res;
+
     if(ready_queue != NULL)
     {
         if(ready_queue[*queue_cnt].process_id > ready_queue[*queue_cnt - 1].process_id)
         {
-            *queue_cnt -= 1;
+            res = ready_queue[*queue_cnt];
+            ready_queue[*queue_cnt] = ready_queue[*queue_cnt - 1];
+            ready_queue[*queue_cnt - 1] = res;
+            
             ready_queue[*queue_cnt].execution_starttime = timestamp;
             ready_queue[*queue_cnt].execution_endtime = ready_queue[*queue_cnt].remaining_bursttime + timestamp;
+
+            *queue_cnt -= 1;
+
+
         }
     }
     
