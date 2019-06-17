@@ -139,6 +139,7 @@ struct PCB handle_process_completion_pp(struct PCB ready_queue[QUEUEMAX], int *q
     }
     else
     {
+        return NULLPCB
     }
     
     return ready_queue[*queue_cnt];
@@ -166,20 +167,72 @@ struct PCB handle_process_arrival_srtp(struct PCB ready_queue[QUEUEMAX], int *qu
 
 struct PCB handle_process_completion_srtp(struct PCB ready_queue[QUEUEMAX], int *queue_cnt, int timestamp)
 {
+            if ((*queue_cnt) == 0)
+        {
+            return NULLPCB;
+        }
+        else
+        {
+            for (int i = 0; i < *queue_cnt; i++)
+            {
+                if (i == 0)
+                {
+                    priorityComp = ready_queue[i].process_priority;
+                    prrVal = i;
+                }
+                else
+                {
+                    if (ready_queue[i].process_priority < priorityComp)
+                    {
+                        priorityComp = ready_queue[i].process_priority;
+                        prrVal = i;
+                    }
+                }
+            }
+
+
+        struct PCB new_process = ready_queue[prrVal];
+
+        //remove PCB from ready queue
+        for (c = prrVal; c < *queue_cnt; c++)
+        {
+            if (c == *queue_cnt - 1)
+            {
+                ready_queue[c] = NULLPCB;
+            }
+            else
+            {
+                ready_queue[c] = ready_queue[c + 1];
+            }
+        }
+
+        (*queue_cnt)--;
+
+        new_process.execution_starttime = timestamp;
+        new_process.execution_endtime = timestamp + new_process.remaining_bursttime;
+        return new_process;
+        }
+
+
 }
 
 struct PCB handle_process_arrival_rr(struct PCB ready_queue[QUEUEMAX], int *queue_cnt, struct PCB current_process, struct PCB new_process, int timestamp, int time_quantum)
 {
  
-    current_process.remaining_bursttime -= (timestamp - 1);
-    current_process.execution_starttime = timestamp - 2;
-    current_process.execution_endtime = 0;
+    // current_process.remaining_bursttime -= (timestamp - 1);
 
-    ready_queue[*queue_cnt] = current_process;
-
-    new_process.execution_starttime = timestamp;
-    new_process.execution_endtime = new_process.total_bursttime + timestamp + time_quantum;
+    //Expecting returned_pcb.process_id value of 2 and received 0'
+    
+    if( current_process == NULL){
+    new_process.execution_starttime = 0;
+    new_process.execution_endtime = 0;
     new_process.remaining_bursttime = new_process.total_bursttime;
+
+    ready_queue[*queue_cnt] = new_process;
+
+    // new_process.execution_starttime = timestamp;
+    // new_process.execution_endtime = new_process.total_bursttime + timestamp + time_quantum;
+    // new_process.remaining_bursttime = new_process.total_bursttime;
     
     *queue_cnt += 1;
 
