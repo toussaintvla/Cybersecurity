@@ -2,6 +2,7 @@
 #include "stdbool.h"
 #include <stdio.h>
 
+
 struct PCB NULLPCB = {0, 0, 0, 0, 0, 0, 0};
 
 bool compare(struct PCB a, struct PCB b){
