@@ -4,23 +4,17 @@
 #include <string.h>
 #include <stdbool.h>
 
-bool is_null_RCB(struct RCB current_request) {
-    if((current_request.address == 0) && (current_request.arrival_timestamp == 0) && (current_request.cylinder == 0) && (current_request.process_id == 0) && (current_request.request_id == 0))
-        return true;
-    else
-        return false;
+bool is_NULLRCB(struct RCB current_request) {
+    return ((current_request.address == 0) && (current_request.arrival_timestamp == 0) && (current_request.cylinder == 0) && (current_request.process_id == 0) && (current_request.request_id == 0));
 }
-
+struct RCB NULLRCB = {0,0,0,0,0};
 
 struct RCB handle_request_arrival_fcfs(struct RCB request_queue[QUEUEMAX], int *queue_cnt, struct RCB current_request, struct RCB new_request, int timestamp){
-    if (is_null_RCB(current_request)){
-        //struct RCB null_RCB = {0,0,0,0,0};
+    if (is_NULLRCB(current_request))
         return new_request;
-    }
-    else {
+    else{
         if (*queue_cnt <= QUEUEMAX){
-            request_queue[*queue_cnt] = new_request;
-            *queue_cnt += 1;
+            request_queue[(*queue_cnt)++] = new_request;
             return current_request;
         }
         else
@@ -30,36 +24,34 @@ struct RCB handle_request_arrival_fcfs(struct RCB request_queue[QUEUEMAX], int *
 
 struct RCB handle_request_completion_fcfs(struct RCB request_queue[QUEUEMAX],int *queue_cnt){
     if (*queue_cnt <= 0){
-        struct RCB null_RCB = {0,0,0,0,0};
-        return null_RCB;
+        return NULLRCB;
     }
     else{
-        struct RCB next_RCB;
+        struct RCB nextRCB;
         int temp_index = 0;
         int temp_arrival = request_queue[0].arrival_timestamp;
-        for (int index = 1; index < *queue_cnt; index++){ //looking for the smallest time_arrival value
+        for (int index = 1; index < *queue_cnt; index++){
             if (temp_arrival > request_queue[index].arrival_timestamp){
                 temp_arrival = request_queue[index].arrival_timestamp;
                 temp_index = index;
             }
         }
-        next_RCB = request_queue[temp_index];
+        nextRCB = request_queue[temp_index];
         for (int index = temp_index; index < *queue_cnt ; index++){
             request_queue[index] = request_queue[index+1];
         }
-        *queue_cnt -= 1;
-        return next_RCB;
+        (*queue_cnt)--;
+        return nextRCB;
     }
 }
 
 struct RCB handle_request_arrival_sstf(struct RCB request_queue[QUEUEMAX],int *queue_cnt, struct RCB current_request, struct RCB new_request, int timestamp){
-    if (is_null_RCB(current_request)){
+    if (is_NULLRCB(current_request)){
         return new_request;
     }
     else {
         if (*queue_cnt <= QUEUEMAX){
-            request_queue[*queue_cnt] = new_request;
-            *queue_cnt += 1;
+            request_queue[(*queue_cnt)++] = new_request;
             return current_request;
         }
         else
@@ -69,15 +61,14 @@ struct RCB handle_request_arrival_sstf(struct RCB request_queue[QUEUEMAX],int *q
 
 struct RCB handle_request_completion_sstf(struct RCB request_queue[QUEUEMAX],int *queue_cnt,int current_cylinder){
     if (*queue_cnt <= 0){
-        struct RCB null_RCB = {0,0,0,0,0};
-        return null_RCB;
+        return NULLRCB;
     }
     else{
-        struct RCB next_RCB;
+        struct RCB nextRCB;
         int temp_index = 0, temp_cylinder = 0, temp_arrivel = 0;
         temp_cylinder = abs(current_cylinder - request_queue[0].cylinder);
         temp_arrivel = request_queue[0].arrival_timestamp;
-        for (int index = 1; index < *queue_cnt; index++){ //looking for the closest cylinder gap
+        for (int index = 1; index < *queue_cnt; index++){
             if (temp_cylinder == abs(current_cylinder - request_queue[index].cylinder)){
                 if (temp_arrivel > request_queue[index].arrival_timestamp){
                     temp_cylinder = abs(current_cylinder - request_queue[index].cylinder);
@@ -91,17 +82,17 @@ struct RCB handle_request_completion_sstf(struct RCB request_queue[QUEUEMAX],int
                 temp_index = index;
             }
         }
-        next_RCB = request_queue[temp_index];
+        nextRCB = request_queue[temp_index];
         for (int index = temp_index; index < *queue_cnt ; index++){
             request_queue[index] = request_queue[index+1];
         }
-        *queue_cnt -= 1;
-        return next_RCB;
+        (*queue_cnt)--;
+        return nextRCB;
     }
 }
 
 struct RCB handle_request_arrival_look(struct RCB request_queue[QUEUEMAX],int *queue_cnt, struct RCB current_request, struct RCB new_request, int timestamp){
-    if (is_null_RCB(new_request)){
+    if (is_NULLRCB(new_request)){
         return new_request;
     }
     else {
@@ -117,14 +108,13 @@ struct RCB handle_request_arrival_look(struct RCB request_queue[QUEUEMAX],int *q
 
 struct RCB handle_request_completion_look(struct RCB request_queue[QUEUEMAX],int *queue_cnt, int current_cylinder, int scan_direction){
     if (*queue_cnt <= 0){
-        struct RCB null_RCB = {0,0,0,0,0};
-        return null_RCB;
+        return NULLRCB;
     }
     else{
-        struct RCB next_RCB;
+        struct RCB nextRCB;
         int temp_index = 0, temp_cylinder = 0, temp_arrivel = 0;
         bool flag_equel = false, flag_positive_cylinder = false, first = false, direction_first = false, opposite_direction_first = false;
-        for (int index = 0; index < *queue_cnt; index++){ //looking for the closest cylinder gap
+        for (int index = 0; index < *queue_cnt; index++){
             if (current_cylinder == request_queue[index].cylinder){
                 if (first == false){
                     temp_arrivel = request_queue[index].arrival_timestamp;
@@ -138,7 +128,7 @@ struct RCB handle_request_completion_look(struct RCB request_queue[QUEUEMAX],int
                 }
             }
             else if ((scan_direction == 1) && (flag_equel == false)){
-                if(request_queue[index].cylinder - current_cylinder > 0){ //looking for larger cylinder
+                if(request_queue[index].cylinder - current_cylinder > 0){
                     if (direction_first == false){
                         temp_cylinder = request_queue[index].cylinder - current_cylinder;
                         temp_index = index;
@@ -163,7 +153,7 @@ struct RCB handle_request_completion_look(struct RCB request_queue[QUEUEMAX],int
                 }
             }
             else if ((scan_direction == 0) && (flag_equel == false)){
-                if(current_cylinder - request_queue[index].cylinder > 0){ //looking for larger cylinder
+                if(current_cylinder - request_queue[index].cylinder > 0){
                     if (direction_first == false){
                         temp_cylinder = current_cylinder - request_queue[index].cylinder;
                         temp_index = index;
@@ -188,11 +178,11 @@ struct RCB handle_request_completion_look(struct RCB request_queue[QUEUEMAX],int
                 }
             }
         }
-        next_RCB = request_queue[temp_index];
+        nextRCB = request_queue[temp_index];
         for (int index = temp_index; index < *queue_cnt ; index++){
             request_queue[index] = request_queue[index+1];
         }
-        *queue_cnt -= 1;
-        return next_RCB;
+        (*queue_cnt)--;
+        return nextRCB;
     }
 }
