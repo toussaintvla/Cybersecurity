@@ -1,15 +1,15 @@
-language: c
+#language: c
 
 addons:
   homebrew:
-    update: true
+    update: false
 
 matrix:
   include:
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="k get nodes -o wide"
 
 install:
   - eval "${MATRIX_EVAL}"
