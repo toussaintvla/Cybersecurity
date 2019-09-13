@@ -1,15 +1,12 @@
-#language: c
-
-addons:
-  homebrew:
-    update: false
+language: c
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode8
+    - os: linux
+      dist: xenial
+      # compiler: gcc
       env:
-        - MATRIX_EVAL="k get nodes -o wide"
+        - MATRIX_EVAL="echo Vlad"
 
 install:
   - eval "${MATRIX_EVAL}"
