@@ -1,12 +1,11 @@
-# language: c
-
+language: python
+python:
+  - '3.5'
+  - '3.4'
+  - '2.7'
 matrix:
   include:
-    - os: linux
-      dist: xenial
-      # compiler: gcc
-      env:
-        - MATRIX_EVAL="echo Vlad"
-
-install:
-  - eval "${MATRIX_EVAL}"
+    - python: '3.5' # this is not strictly necessary
+      env: EXTRA_TESTS=true
+    - python: '3.4'
+      env: EXTRA_TESTS=true
