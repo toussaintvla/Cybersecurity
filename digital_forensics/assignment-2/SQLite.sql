@@ -1,12 +1,21 @@
 -- SQLite
--- SELECT target_path, total_bytes, (end_time - start_time) AS elapsed_time
+
+-- SELECT COUNT(*) FROM `downloads`;
+
+-- SELECT target_path, total_bytes, 
+-- (end_time - start_time) AS elapsed_time
 -- FROM `downloads`
 -- ORDER BY elapsed_time DESC
 -- LIMIT 0,1;
 
--- SELECT DISTINCT * FROM `keyword_search_terms` GROUP BY term;
+-- SELECT DISTINCT * 
+-- FROM `keyword_search_terms`
+-- GROUP BY term;
 
--- SELECT title, last_visit_time FROM `urls` WHERE title LIKE 'eastbourne%';
+-- SELECT title, last_visit_time 
+-- FROM `urls` 
+-- WHERE title 
+-- LIKE 'eastbourne%';
 
 -- SELECT DISTINCT urls.title, urls.last_visit_time, visits.visit_time
 -- FROM `urls`
@@ -34,3 +43,14 @@
 -- INNER JOIN `urls` 
 -- ON urls.id = visits.url
 -- ORDER BY date_time DESC;
+
+-- SELECT DISTINCT 
+-- datetime(urls.last_visit_time / 1000000 - 11644473600, 'unixepoch') AS date_time, 
+-- keyword_search_terms.term 
+-- FROM `keyword_search_terms` 
+-- INNER JOIN `urls` 
+-- ON keyword_search_terms.url_id = urls.id 
+-- INNER JOIN `visits` 
+-- ON urls.id = visits.url 
+-- ORDER BY date_time 
+-- DESC LIMIT 0,1;
