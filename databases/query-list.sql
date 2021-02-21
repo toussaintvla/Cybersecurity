@@ -14,10 +14,10 @@ ORDER BY date_added DESC; -- 3.3
 
 SELECT product_name, list_price, discount_percent,
 ROUND((list_price * (discount_percent / 100)), 2) AS discount_amount,
-ROUND((list_price + (list_price * (discount_percent / 100))), 2) AS discount_price
+ROUND((list_price - (list_price * (discount_percent / 100))), 2) AS discount_price
 FROM my_guitar_shop.products
 ORDER BY discount_price DESC
-LIMIT 5; -- 3.4 - incomplete
+LIMIT 5; -- 3.4
 
 SELECT item_id, item_price, discount_amount, quantity,
 (item_price * quantity) AS price_total,
@@ -31,6 +31,11 @@ SELECT order_id, order_date, ship_date
 FROM my_guitar_shop.orders
 WHERE ship_date IS NULL
 ORDER BY order_id DESC; -- 3.6
+
+Select 100 AS price,
+0.07 AS tax_rate,
+(100 * 0.07) AS tax_amount,
+(100) + (100 * 0.07) AS total -- 3.7
 
 SELECT categories.category_name, products.product_name, products.list_price
 FROM my_guitar_shop.categories

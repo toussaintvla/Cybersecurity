@@ -1,6 +1,6 @@
-SELECT product_name, list_price, discount_percent,
-ROUND((list_price * (discount_percent / 100)), 2) AS discount_amount,
-ROUND((list_price + (list_price * (discount_percent / 100))), 2) AS discount_price
-FROM my_guitar_shop.products
-ORDER BY discount_price DESC
-LIMIT 5;
+SELECT customers.first_name, customers.last_name, addresses.line1, addresses.city, addresses.state, addresses.zip_code
+FROM my_guitar_shop.customers
+INNER JOIN my_guitar_shop.addresses
+ON customers.customer_id=addresses.customer_id
+WHERE customers.email_address = 'allan.sherwood@yahoo.com'
+ORDER BY addresses.zip_code ASC;
