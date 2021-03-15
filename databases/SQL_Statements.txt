@@ -1,0 +1,483 @@
+Section 3
+1.
+select product_code, product_name, list_price, discount_percent
+from products
+order by list_price desc;
+2.
+select first_name, last_name, concat(last_name,', ', first_name) as full_name
+from customers
+where last_name between 'E' and 'W'
+order by last_name ASC;
+
+
+3.
+select product_name, list_price, date_added
+from products
+where list_price >500 and list_price < 2000
+order by date_added desc;
+
+4.
+select product_name,
+	   list_price,
+	   discount_percent,
+       round(((list_price * discount_percent)/100),2) as discount_amount,
+	   round((list_price - ((list_price * discount_percent)/100)),2) as discount_price
+from products
+order by discount_price desc
+limit 0,5;
+
+5.
+select  item_id,
+		item_price,
+        discount_amount,
+        quantity,
+        (item_price * quantity) as price_total,
+        (discount_amount* quantity) as discount_total,
+        ((item_price - discount_amount)*quantity) as item_total
+from order_items
+where ((item_price - discount_amount)*quantity) >= 500
+order by item_total desc;
+
+6
+select  order_id,order_date,ship_date
+from orders
+where ship_date is null
+order by order_id desc;
+
+
+7
+select 100 as price, 0.07 as tax_rate, 100 * 0.07 as tax_amount, 100 + (100*0.07) as total;
+
+https://vikram-bajaj.gitbook.io/cs-gy-6083-principles-of-database-systems/sql/introduction-to-sql
+
+4.1
+
+SELECT category_name, product_name, list_price
+FROM categories
+JOIN products
+ORDER BY category_name, product_name ASC;
+
+SELECT categories.Category_name , products.Product_name, products.List_price
+FROM categories
+Inner JOIN products on categories.Category_id=products.Category_id
+ORDER BY categories.Category_name , products.Product_name ASC;
+
+
+
+4.2
+SELECT customers.First_name, customers.Last_name,addresses.Line1,
+addresses.City,addresses.State,addresses.Zip_code
+FROM customers
+INNER JOIN addresses ON customers.Customer_id=addresses.Customer_id
+WHERE customers.Email_address= "allan.sherwood@yahoo.com"
+ORDER BY addresses.Zip_code ASC;
+
+
+
+4.3
+SELECT first_name, last_name,
+Line1, city, state, zip_code
+FROM customers JOIN addresses ON
+customers.customer_id = addresses.customer_id
+AND
+customers.shipping_address_id = addresses.address_id
+Order by zip_code;
+
+4.4
+SELECT c.last_name,
+c.first_name,
+order_date,
+p.product_name,
+item_price,
+discount_amount,
+quantity
+FROM customers AS c
+JOIN orders AS o ON c.customer_id = o.customer_id
+JOIN order_items AS oi ON o.order_id = oi.order_id
+JOIN products AS p ON oi.product_id = p.product_id
+ORDER BY Last_name, order_date, product_name;
+
+4.5
+SELECT 'SHIPPED' AS ship_status,
+order_id, order_date
+FROM orders
+WHERE ship_date IS NOT NULL
+UNION
+SELECT 'NOT SHIPPED', order_id, order_date
+FROM orders
+WHERE ship_date IS NULL
+ORDER BY order_date;
+
+5.1
+insert into categories (Category_name)
+values ('brass');
+
+5.2
+UPDATE categories
+set category_name='woodwinds'
+where category_id=3;
+
+5.3
+DELETE from categories
+where category_id=4;
+
+5.4
+insert into products (Product_id, Category_id,
+Product_code, Product_name, Description, List_price,
+Discount_percent, Date_added)
+values ('11','4','dgx_640'
+,'Yamaha DGX 640 88-Key Digital Piano', 'Long description to
+come.', '799.99', '0', '2017-12-05 16:33:13');
+
+*****
+INSERT INTO products
+    (product_id, category_id, product_code, product_name, description,
+list_price, discount_percent, date_added)
+    values
+(default, 4, 'dgx_640', 'Yamaha DGX 640 88-Key Digital Piano', 'Long description to come',
+'799.99', '0', NOW());
+********
+
+5.5
+update products set Discount_percent= '35'
+where Category_id=1;
+
+5.6
+insert into customers (Email_address, Password, First_name,
+Last_name)
+values ('rick@raven.com','','Rick','Raven');
+
+5.7
+update customers set First_name= 'Al'
+where Customer_id=1;
+
+6.1
+SELECT COUNT(order_id) AS order_count, SUM(tax_amount) AS tax_total, AVG(tax_amount) AS tax_average
+FROM orders;
+
+6.2
+SELECT category_name, COUNT(p.product_id) AS product_count, MAX(p.list_price) AS most_expensive_product
+FROM categories AS c
+INNER JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_name
+ORDER BY product_count DESC;
+
+6.3
+SELECT
+    c.email_address,
+    SUM(o.item_price * o.quantity) AS item_price_total,
+    SUM(o.discount_amount * o.quantity) AS discount_amount_total
+FROM customers AS c
+INNER JOIN orders AS ord ON ord.customer_id = c.customer_id
+INNER JOIN order_items AS o ON o.order_id = ord.order_id
+GROUP BY c.customer_id
+ORDER BY item_price_total DESC;
+
+6.4
+
+SELECT C.email_address,
+       COUNT(O.customer_id) AS order_count,
+       SUM((I.item_price – I.discount_amount) * I.quantity) AS order_total
+FROM customers AS C INNER JOIN orders AS O
+        ON (C.customer_id = O.customer_id)
+                       INNER JOIN order_items AS I
+                       ON (O.order_id = I.order_id)
+GROUP    BY C.email_address
+HAVING   COUNT(O.customer_id) > 1
+ORDER BY item_price_total DESC;
+SELECT sum((item_price - discount_amount) * quantity)
+FROM order_items
+ORDER BY order_id;
+
+
+
+
+
+
+
+7.1
+SELECT product_id, product_name, list_price
+FROM products
+WHERE
+    list_price > (SELECT
+            AVG(list_price)
+        FROM
+            products)
+ORDER BY list_price DESC
+
+
+7.2
+SELECT email_address, max(order_total) max_order_total, min(order_id) min_order_id FROM
+(SELECT email_address, o.order_id, sum(quantity * (item_price - discount_amount)) order_total FROM customers c INNER JOIN orders o on o.customer_id = c.customer_id
+INNER JOIN order_items oi on oi.order_id = o.order_id
+GROUP BY email_address, o.order_id) data
+GROUP BY email_address
+ORDER BY 2 desc;
+
+
+7.3
+select prd.Product_name, prd.List_price, prd.Discount_percent
+from products as prd
+where prd.Discount_percent not in
+    (select prd2.Discount_percent
+     from products as prd2
+     where prd.Product_name <> prd2.Product_name)
+order by Product_name
+
+7.4
+SELECT
+    c.email_address, o.order_id AS oldest_order_id, o.order_date AS oldest_order_date
+FROM
+    customers c
+        INNER JOIN
+    orders o ON o.customer_id = c.customer_id
+WHERE
+    o.order_date IN (SELECT
+            MIN(o.order_date)
+        FROM
+            orders o
+        GROUP BY o.customer_id);
+
+8.1
+SELECT   list_price,
+FORMAT(list_price,1)  AS price_format,           --  98.9
+CONVERT(list_price, UNSIGNED)  AS price_convert,          --  Integer
+CAST(list_price AS UNSIGNED)     AS price_cast                  --  Integer
+FROM  products
+ORDER BY list_price ASC;
+
+8.2
+select Date_added, cast(Date_added as date) as added_date,date_format(cast(Date_added as date), '%Y-%m') as added_char7,cast(Date_added as time) as added_time
+    from products
+order by Date_added;
+
+
+9.1
+SELECT
+    list_price,
+    discount_percent,
+    ROUND(list_price * discount_percent / 100,2) AS discount_amount
+FROM products
+ORDER BY discount_amount ASC;
+
+9.2
+
+SELECT order_date,
+    DATE_FORMAT(order_date, '%Y') AS order_year,
+    DATE_FORMAT(order_date, '%b-%d-%Y') AS order_date_formatted,
+    DATE_FORMAT(order_date, '%l:%i %p') AS order_time,
+    DATE_FORMAT(order_date, '%m/%d/%y %H:%i') AS order_datetime
+FROM orders;
+
+
+9.3
+SELECT Card_number,length(Card_number) AS Card_number_length,
+RIGHT(Card_number,4) AS Last_four_digits,
+IF(length(Card_number)<16, CONCAT('XXXX-XXXXXX-X',(SUBSTRING(card_number,-4))),CONCAT('XXXX-XXXX-XXXX-',(SUBSTRING(card_number,-4)))) AS Formatted_number
+FROM orders
+ORDER BY Card_number;
+
+9.4
+SELECT order_id, order_date, DATE_ADD(order_date, INTERVAL 2 DAY) AS 'approx_ship_date', ship_date, DATEDIFF(ship_date , order_date) AS 'days_to_ship'
+FROM orders
+WHERE ship_date IS NOT NULL
+AND MONTH(order_date) = '3'
+AND YEAR(order_date) = '2018'
+ORDER BY order_id ASC;
+
+
+11.1
+CREATE INDEX zip_index
+ON addresses (zip_code);
+
+11.2
+CREATE INDEX name_index
+ON customers (last_name,first_name);
+
+
+12.1
+CREATE OR REPLACE VIEW customer_addresses AS
+    SELECT
+        c.customer_id,
+        c.email_address,
+        c.first_name,
+        c.last_name,
+        a1.line1 AS bill_line1,
+        a1.line2 AS bill_line2,
+        a1.city AS bill_city,
+        a1.state AS bill_state,
+        a1.zip_code AS bill_zip,
+        a2.line1 AS ship_line1,
+        a2.line2 AS ship_line2,
+        a2.city AS ship_city,
+        a2.state AS ship_state,
+        a2.zip_code AS ship_zip
+    FROM
+        customers AS c
+            INNER JOIN
+        addresses AS a1 ON c.customer_id = a1.customer_id
+            AND c.billing_address_id = a1.address_id
+            INNER JOIN
+        addresses AS a2 ON c.customer_id = a2.customer_id
+            AND c.shipping_address_id = a2.address_id;
+
+
+
+12.2
+CREATE OR REPLACE VIEW order_item_products AS
+    SELECT
+        o.order_id,
+        o.order_date,
+        o.tax_amount,
+        o.ship_date,
+        oi.item_price,
+        oi.discount_amount,
+        (oi.item_price - oi.discount_amount) AS final_price,
+        oi.quantity,
+        (oi.item_price - oi.discount_amount) * oi.quantity as item_total,
+        p.product_name
+    FROM
+        orders o
+            INNER JOIN
+        order_items oi ON o.order_id = oi.order_id
+            INNER JOIN
+        products p ON oi.product_id = p.product_id;
+
+select * from   order_item_products;
+
+
+12.3 ***** NOT COMPLETED *****
+CREATE OR REPLACE VIEW product_summary AS
+SELECT product_name, COUNT(order_id) AS order_count, SUM(item_total) AS order_total
+FROM order_item_products
+GROUP BY product_name;
+
+12.4 *** NOT COMPLETED ******
+CREATE OR REPLACE VIEW best_products AS
+SELECT order_total
+FROM product_summary
+ORDER BY order_total DESC LIMIT 5;
+
+
+13.1 ***** NOT COMPLETED *****
+
+CREATE PROCEDURE test(
+OUT message VARCHAR(60))
+BEGIN
+DECLARE productCount DECIMAL DEFAULT 0;
+
+SELECT COUNT(*)
+INTO productCount
+FROM products;
+
+IF productCount >= 7 THEN
+SET message = 'The number of products is greater than or equal to 7';
+ELSE
+SET message = 'The number of products is less than 7';
+END IF;
+END;
+
+13.2 **** NOT WORKING *****
+DROP PROCEDURE IF EXISTS test;
+
+DELIMITER //
+create procedure test()
+BEGIN
+DECLARE fact_var1 int;
+DECLARE fact_var2 int;
+DECLARE i int;
+DECLARE common_var VARCHAR(400) DEFAULT 'Common factors of 10 and 20: ';
+
+set fact_var1=10;
+set fact_var2=20;
+SET i = 1;
+
+  WHILE (i < fact_var1) DO
+
+      IF (fact_var1%i = 0 and fact_var2%i=0) THEN
+            SET common_var = CONCAT(common_var, i, ' ');
+        END IF;
+        set i=i+1;
+  END WHILE;
+  select common_var as message;
+end//
+
+call test();
+
+13.3 **** NOT WORKING *****
+DROP PROCEDURE IF EXISTS test;
+
+DELIMITER //
+
+CREATE PROCEDURE test()
+BEGIN
+DECLARE product_name_var VARCHAR(50);
+DECLARE list_price_var DECIMAL(9,2);
+DECLARE row_not_found TINYINT DEFAULT FALSE;
+DECLARE s_var VARCHAR(400) DEFAULT '';
+
+DECLARE invoice_cursor CURSOR for
+	SELECT
+		product_name,
+		list_price
+	FROM
+		products
+	WHERE
+		list_price > 700
+	ORDER BY list_price DESC;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND
+	SET row_not_found = TRUE;
+
+OPEN invoice_cursor;
+
+FETCH invoice_cursor INTO product_name_var, list_price_var;
+WHILE row_not_found = FALSE DO
+    SET s_var = CONCAT(s_var,' " ', product_name_var,' " , " ',list_price_var,'" |');
+	FETCH invoice_cursor INTO product_name_var, list_price_var;
+END WHILE;
+
+SELECT s_var AS message;
+END//
+
+call test();
+
+
+13.4
+CREATE PROCEDURE test()
+BEGIN
+DECLARE duplicate_entry_for_key TINYINT DEFAULT FALSE;
+    BEGIN
+    DECLARE EXIT HANDLER FOR 1062
+    SET duplicate_entry_for_key = TRUE;
+    INSERT INTO categories VALUES (default, 'Guitars');
+    SELECT '1 row was inserted.' AS message;
+    END;
+    IF duplicate_entry_for_key = TRUE THEN
+    SELECT 'Row was not inserted - duplicate entry.' AS message;
+    END IF;
+END
+
+15.1
+
+CREATE PROCEDURE test(
+OUT message VARCHAR(60))
+BEGIN
+DECLARE productCount DECIMAL DEFAULT 0;
+
+SELECT COUNT(*)
+INTO productCount
+FROM products;
+
+IF productCount >= 7 THEN
+SET message = 'The number of products is greater than or equal to 7';
+ELSE
+SET message = 'The number of products is less than 7';
+END IF;
+END;
+
+15.2
+
+
+15.3 ***** NOT COMPLETED *****
+
