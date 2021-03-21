@@ -360,18 +360,24 @@ BEGIN
     DECLARE i INT;
     DECLARE common_var VARCHAR(400) DEFAULT 'Common factors of 10 and 20: ';
 
+    DECLARE fact_var3 VARCHAR(40);
+
     SET fact_var1 = 10;
     SET fact_var2 = 20;
     SET i = 1;
 
-    WHILE (i < fact_var1) DO
-        IF (fact_var1 % i = 0 AND fact_var2 % i = 0) THEN
+    WHILE (i <= fact_var1) DO
+        IF (i = 10) THEN
+            SET common_var = CONCAT(common_var, i, '');
+        ELSEIF (fact_var1 % i = 0 AND fact_var2 % i = 0) THEN
             SET common_var = CONCAT(common_var, i, ' ');
-            END IF;
+        ELSE
+            SET fact_var3 = 'Do Nothing';
+        END IF;
             SET i = i + 1;
     END WHILE;
     SELECT common_var AS message;
-END -- 13.2 - fix
+END -- 13.2
 
 
 CREATE PROCEDURE test()
@@ -500,4 +506,3 @@ BEGIN
     WHERE  item_id= item_id_par;
 RETURN item_total_var;
 END -- 15.4 -- fix
-
