@@ -19,116 +19,160 @@
     <!-- End -->
 
     <div class="pb-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
                 <!-- Shopping cart table -->
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col" class="border-0 bg-light">
-                            <div class="p-2 px-3 text-uppercase">Product</div>
-                        </th>
-                        <th scope="col" class="border-0 bg-light">
-                            <div class="py-2 text-uppercase">Price</div>
-                        </th>
-                        <th scope="col" class="border-0 bg-light">
-                            <div class="py-2 text-uppercase">Quantity</div>
-                        </th>
-                        <th scope="col" class="border-0 bg-light">
-                            <div class="py-2 text-uppercase">Remove</div>
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row" class="border-0">
-                            <div class="p-2">
-                            <img src="img/img-01.png" alt="" width="250" class="img-fluid rounded shadow-sm">
-                            <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Cabernet Sauvignon</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: Red Wine</span>
-                            </div>
-                            </div>
-                        </th>
-                        <td class="border-0 align-middle"><strong>$79.99</strong></td>
-                        <td class="border-0 align-middle"><strong>3</strong></td>
-                        <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            <div class="p-2">
-                            <img src="img/img-02.png" alt="" width="250" class="img-fluid rounded shadow-sm">
-                            <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Pinot Noir</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
-                            </div>
-                            </div>
-                        </th>
-                        <td class="align-middle"><strong>$39.99</strong></td>
-                        <td class="align-middle"><strong>3</strong></td>
-                        <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
-                        </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            <div class="p-2">
-                            <img src="img/img-03.png" alt="" width="250" class="img-fluid rounded shadow-sm">
-                            <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Malbec</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
-                            </div>
-                            </div>
-                            <td class="align-middle"><strong>$21.99</strong></td>
-                            <td class="align-middle"><strong>3</strong></td>
-                            <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                    <div class="table-responsive">
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="p-2 px-3 text-uppercase">Product</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Price</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Quantity</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Add Item</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Remove</div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row" class="border-0">
+                                <div class="p-2">
+                                <img src="img/img-01.png" alt="" width="250" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Cabernet Sauvignon</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: Red Wine</span>
+                                </div>
+                                </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>$79.99</strong></td>
+                            <td class="border-0 align-middle">
+                                <input id="fName01" required type="number" value="" min="0" max="5"/>
                             </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            <div class="p-2">
-                            <img src="img/img-04.png" alt="" width="250" class="img-fluid rounded shadow-sm">
-                            <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Chardonnay</a></h5><span class="text-muted font-weight-normal font-italic">Category: White Wine</span>
-                            </div>
-                            </div>
-                            <td class="align-middle"><strong>$64.99</strong></td>
-                            <td class="align-middle"><strong>3</strong></td>
-                            <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                            <td class="border-0 align-middle">
+                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
                             </td>
-                        </tr>
-                        <tr>
-                        <th scope="row">
-                            <div class="p-2">
-                            <img src="img/img-05.png" alt="" width="250" class="img-fluid rounded shadow-sm">
-                            <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Merlot</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
-                            </div>
-                            </div>
-                            <td class="align-middle"><strong>$44.99</strong></td>
-                            <td class="align-middle"><strong>3</strong></td>
-                            <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
                             </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="img/img-02.png" alt="" width="250" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Pinot Noir</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
+                                </div>
+                                </div>
+                            </th>
+                            <td class="align-middle"><strong>$39.99</strong></td>
+                            <td class="align-middle">
+                                <input id="fName02" required type="number" value="" min="0" max="5"/>
+                            </td>
+                            <td class="border-0 align-middle">
+                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                            </td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                            </td>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="img/img-03.png" alt="" width="250" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Malbec</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
+                                </div>
+                                </div>
+                                <td class="align-middle"><strong>$21.99</strong></td>
+                                <td class="align-middle">
+                                    <input id="fName03" required type="number" value="" min="0" max="5"/>
+                                </td>
+                                <td class="border-0 align-middle">
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="img/img-04.png" alt="" width="250" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Chardonnay</a></h5><span class="text-muted font-weight-normal font-italic">Category: White Wine</span>
+                                </div>
+                                </div>
+                                <td class="align-middle"><strong>$64.99</strong></td>
+                                <td class="align-middle">
+                                    <input id="fName04" required type="number" value="" min="0" max="5"/>
+                                </td>
+                                <td class="border-0 align-middle">
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="img/img-05.png" alt="" width="250" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Merlot</a></h5><span class="text-muted font-weight-normal font-italic">Category: Red Wine</span>
+                                </div>
+                                </div>
+                                <td class="align-middle"><strong>$44.99</strong></td>
+                                <td class="align-middle">
+                                    <input id="fName05" required type="number" value="" min="0" max="5"/>
+                                </td>
+                                <td class="border-0 align-middle">
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
                 <!-- End -->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Total Amount: </strong>
+                                <strong>$53.98</strong>
+                            </div>
+                            <button type="button" class="btn btn-outline-warning btn-block">Checkout</button>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>
     </div>
+
     </div>
 
-    <form>
-        <label>First Name :</label>
-        <input type="text" id="fName">
-        <label>Last Name :</label>
-        <input type="text" id="lName">
-        <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <button type="button" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Call API</button>
-    </form>
 <!-- Scripts  -->
-    <script type="text/javascript" src="js/index.js" crossorigin="anonymous"></script>
+    <script>$("input[type='number']").inputSpinner()</script>
+    <script src="js/index.js" crossorigin="anonymous"></script>
+    <script src="js/input-spinner.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
