@@ -57,13 +57,13 @@
                             </th>
                             <td class="border-0 align-middle"><strong>$79.99</strong></td>
                             <td class="border-0 align-middle">
-                                <input id="fName01" required type="number" value="" min="0" max="5"/>
+                                <input id="quantity01" required type="number" value="" min="0" max="5"/>
                             </td>
                             <td class="border-0 align-middle">
-                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('quantity01').value)">Add</button>
                             </td>
                             <td class="align-middle">
-                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('quantity01').value)"></button>
                             </td>
                             </tr>
                             <tr>
@@ -77,13 +77,13 @@
                             </th>
                             <td class="align-middle"><strong>$39.99</strong></td>
                             <td class="align-middle">
-                                <input id="fName02" required type="number" value="" min="0" max="5"/>
+                                <input id="quantity02" required type="number" value="" min="0" max="5"/>
                             </td>
                             <td class="border-0 align-middle">
-                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('quantity02').value)">Add</button>
                             </td>
                             <td class="align-middle">
-                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('quantity02').value)"></button>
                             </td>
                             </tr>
                             <tr>
@@ -96,13 +96,13 @@
                                 </div>
                                 <td class="align-middle"><strong>$21.99</strong></td>
                                 <td class="align-middle">
-                                    <input id="fName03" required type="number" value="" min="0" max="5"/>
+                                    <input id="quantity03" required type="number" value="" min="0" max="5"/>
                                 </td>
                                 <td class="border-0 align-middle">
-                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('quantity03').value)">Add</button>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('quantity03').value)"></button>
                                 </td>
                             </tr>
                             <tr>
@@ -115,13 +115,13 @@
                                 </div>
                                 <td class="align-middle"><strong>$64.99</strong></td>
                                 <td class="align-middle">
-                                    <input id="fName04" required type="number" value="" min="0" max="5"/>
+                                    <input id="quantity04" required type="number" value="" min="0" max="5"/>
                                 </td>
                                 <td class="border-0 align-middle">
-                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('quantity04').value)">Add</button>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('quantity04').value)"></button>
                                 </td>
                             </tr>
                             <tr>
@@ -134,13 +134,13 @@
                                 </div>
                                 <td class="align-middle"><strong>$44.99</strong></td>
                                 <td class="align-middle">
-                                    <input id="fName05" required type="number" value="" min="0" max="5"/>
+                                    <input id="quantity05" required type="number" value="" min="0" max="5"/>
                                 </td>
                                 <td class="border-0 align-middle">
-                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Add</button>
+                                    <button type="button" class="btn btn-warning btn-sm" onclick="callAPI(document.getElementById('quantity05').value)">Add</button>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)"></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm fa fa-trash" onclick="callAPI(document.getElementById('quantity05').value)"></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -158,7 +158,7 @@
                                 <strong>Total Amount: </strong>
                                 <strong>$53.98</strong>
                             </div>
-                            <button type="button" class="btn btn-outline-warning btn-block">Checkout</button>
+                            <button type="button" class="btn btn-outline-warning btn-block" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Checkout</button>
                         </li>
                     </ul>
 
@@ -177,13 +177,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
-    <form>
-        <label>First Name :</label> <input type="text" id="fName">
-        <label>Last Name :</label> <input type="text" id="lName">
-        <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <button type="button" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Call API</button>
-    </form>
 
 </body>
 <footer>
