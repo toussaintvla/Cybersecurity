@@ -24,15 +24,3 @@ var callAPI = (firstName,lastName)=>{
     .then(result => alert(JSON.parse(result).body))
     .catch(error => console.log('error', error));
 }
-
-// $query = "SELECT wi.winery_name,
-// w.year,
-// w.wine_name,
-// w.wine_id,
-// w.description
-// FROM wine w, winery wi, inventory i
-// WHERE w.winery_id = wi.winery_id
-// AND w.wine_id = i.wine_id
-// AND w.description IS NOT NULL
-// GROUP BY w.wine_id
-// ORDER BY i.date_added DESC LIMIT 3";
