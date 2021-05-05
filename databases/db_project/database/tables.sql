@@ -59,7 +59,6 @@ CREATE TABLE orders (
 CREATE TABLE items (
     item_id int(3) DEFAULT '1' NOT NULL,
     customer_id int(5) DEFAULT '1' NOT NULL,
-    order_id int(5) DEFAULT '1' NOT NULL,
     wine_id int(4) DEFAULT '1' NOT NULL,
     order_no int(5) NOT NULL,
     quantity int(3),
@@ -70,7 +69,6 @@ CREATE TABLE items (
 
 CREATE TABLE variety (
     variety_id int(3) DEFAULT '1' NOT NULL,
-    wine_id int(5) DEFAULT '1' NOT NULL,
     variety_name varchar(20),
-    PRIMARY KEY (variety_id, wine_id)
+    PRIMARY KEY (variety_id)
 );

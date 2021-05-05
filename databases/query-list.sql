@@ -503,6 +503,6 @@ BEGIN
     SELECT discount_price(item_id)*quantity
     INTO item_total_var
     FROM order_items
-    WHERE  item_id= item_id_par;
+    WHERE  item_id = item_id_par;
 RETURN item_total_var;
 END -- 15.4 -- fix
