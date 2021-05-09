@@ -37,11 +37,17 @@ INSERT INTO customer VALUES ('3','LaTrobe','Anthony','125 Barneshaw St','Westlei
 INSERT INTO customer VALUES ('4','Fong','Nicholas','99 Kinsala Pl','Stormlea','NSW','6400','Australia','vt103@nyu.edu');
 INSERT INTO customer VALUES ('5','Stribling','James','6 Woodburne Pl','Legana','QLD','6377','Australia','vt104@nyu.edu');
 
+insert into items(item_id,customer_id,wine_id,order_no,quantity,date,price) values('1','1','1','200','5','2021-04-10 00:00:00.000000','49.99');
+insert into items(item_id,customer_id,wine_id,order_no,quantity,date,price) values('2','2','1','400','2','2020-11-20 00:00:00.000000','79.99');
+insert into items(item_id,customer_id,wine_id,order_no,quantity,date,price) values('3','3','4','300','4','2021-04-10 00:00:00.000000','39.99');
+
 
 SELECT *
 FROM wine w, winery wi
 WHERE w.wine_id = wi.winery_id
 AND w.description IS NOT NULL;
+
+SELECT * FROM orders;
 
 UPDATE orders
 SET date = '2020-02-13',
@@ -49,14 +55,9 @@ SET date = '2020-02-13',
     discount = '1.40'
 WHERE customer_id = 1 AND order_no = 100;
 
-DELETE FROM users
-WHERE user_name = 'vt905';
+UPDATE orders
+SET address = '171 Titshall CL'
+WHERE customer_id = '1' AND order_no = '100';
 
-CREATE OR REPLACE VIEW wine_view AS
-    SELECT
-        v.variety_name, w.wine_name, w.year
-    FROM
-        variety v, wine w
-    WHERE
-        v.variety_name = w.type;
-
+DELETE FROM orders
+WHERE order_no = '500';
